@@ -66,10 +66,10 @@ export default {
     }
   },
   methods: {
-    getAll: async function(resource, page = 1) {
+    getAll: function(resource, page = 1) {
       switch (resource) {
         case 'makes':
-          await apis.list('makes', { page })
+          apis.list('makes', { page })
             .then(data => {
               if (data.data) {
                 data.data.map(d => {
@@ -82,7 +82,7 @@ export default {
             });
           break;
         case 'models':
-          await apis.list('models', { make_id: this.filter.make_id, page })
+          apis.list('models', { make_id: this.filter.make_id, page })
             .then(data => {
               if (data.data) {
                 this.models = data.data;
@@ -90,7 +90,7 @@ export default {
             });
           break;
         case 'years':
-          await apis.list('vehicles/years', { make_id: this.filter.make_id, model_id: this.filter.model_id })
+          apis.list('vehicles/years', { make_id: this.filter.make_id, model_id: this.filter.model_id })
             .then(data => {
               if (data.data) {
                 this.years = data.data.sort();
@@ -101,7 +101,7 @@ export default {
 
       }
     },
-    getAllDimensions: async function() {
+    getAllDimensions: function() {
       const make = this.makes.find(make => {
         return make.id == this.filter.make_id;
       });
@@ -129,7 +129,7 @@ export default {
       this.$router.push(`dimension?make=${make.name}&model=${model.name}&make_seo=${make.name_seo}&model_seo=${model.name_seo}&year=${this.filter.year}&cleanse=true`);
     }
   },
-  mounted: async function() {
+  mounted: function() {
     this.$emit('sub-header:update', {});
     // init the makes array after mounted
     this.getAll('makes');

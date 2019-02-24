@@ -28,9 +28,9 @@ export default {
       dimensions: []
     };
   },
-  mounted: async function() {
+  mounted: function() {
     const query = this.$route.query;
-    await apis.list('dimensions', query)
+    apis.list('dimensions', query)
       .then(({ data }) => {
         if (data.dimensions) {
           this.$emit('sub-header:update', {
